@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
+  final _controllerLogin = TextEditingController();
+  final _controllerPassword = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,23 +32,31 @@ class LoginPage extends StatelessWidget {
           _textFormField(
             'Login',
             'Digite seu LOGIN de acesso...',
+            controller: _controllerLogin,
           ),
           SizedBox(height: 10),
           _textFormField(
             'Senha',
             'Digite sua SENHA...',
             obscureText: true,
+            controller: _controllerPassword,
           ),
           SizedBox(height: 20),
-          _button('Login'),
+          _button('Login', _onClickLogin),
         ],
       ),
     );
   }
 
   // Métodos
-  _textFormField(String label, String hint, {bool obscureText = false}) {
+  _textFormField(
+    String label,
+    String hint, {
+    bool obscureText = false,
+    TextEditingController controller,
+  }) {
     return TextFormField(
+      controller: controller,
       obscureText: obscureText,
       textAlign: TextAlign.center,
       style: TextStyle(
@@ -67,7 +78,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  _button(String text) {
+  _button(String text, Function onPressed) {
     return Container(
       height: 46,
       child: RaisedButton(
@@ -80,8 +91,16 @@ class LoginPage extends StatelessWidget {
             letterSpacing: 2,
           ),
         ),
-        onPressed: () {},
+        onPressed: onPressed,
       ),
     );
+  }
+
+  void _onClickLogin() {
+    String login = _controllerLogin.text;
+    String password = _controllerPassword.text;
+
+    print('$login');
+    print('$password');
   }
 }
