@@ -26,56 +26,61 @@ class LoginPage extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: ListView(
         children: <Widget>[
-          TextFormField(
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 24,
-            ),
-            decoration: InputDecoration(
-              labelText: 'Login',
-              labelStyle: TextStyle(
-                color: Colors.lightBlueAccent,
-                fontSize: 20,
-              ),
-              hintText: 'Digite seu login de acesso...',
-              hintStyle: TextStyle(color: Colors.white24),
-            ),
+          _textFormField(
+            'Login',
+            'Digite seu LOGIN de acesso...',
           ),
           SizedBox(height: 10),
-          TextFormField(
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 24,
-            ),
+          _textFormField(
+            'Senha',
+            'Digite sua SENHA...',
             obscureText: true,
-            decoration: InputDecoration(
-              labelText: 'Senha',
-              labelStyle: TextStyle(
-                color: Colors.lightBlueAccent,
-                fontSize: 20,
-              ),
-              hintText: 'Digite sua senha...',
-              hintStyle: TextStyle(color: Colors.white24),
-            ),
           ),
           SizedBox(height: 20),
-          Container(
-            height: 46,
-            child: RaisedButton(
-              color: Colors.black.withAlpha(10),
-              child: Text(
-                'Login',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                ),
-              ),
-              onPressed: () {},
-            ),
-          ),
+          _button('Login'),
         ],
+      ),
+    );
+  }
+
+  // Métodos
+  _textFormField(String label, String hint, {bool obscureText = false}) {
+    return TextFormField(
+      obscureText: obscureText,
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        color: Colors.white70,
+        fontSize: 24,
+      ),
+      decoration: InputDecoration(
+        labelText: label,
+        labelStyle: TextStyle(
+          color: Colors.lightBlueAccent,
+          fontSize: 20,
+        ),
+        hintText: hint,
+        hintStyle: TextStyle(
+          color: Colors.white24,
+          fontSize: 22,
+        ),
+      ),
+    );
+  }
+
+  _button(String text) {
+    return Container(
+      height: 46,
+      child: RaisedButton(
+        color: Colors.black.withAlpha(10),
+        child: Text(
+          text,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 22,
+            letterSpacing: 2,
+          ),
+        ),
+        onPressed: () {},
       ),
     );
   }
