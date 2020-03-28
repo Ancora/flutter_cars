@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fluttercars/widgets/app_button.dart';
+import 'package:fluttercars/widgets/app_text.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -43,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
         padding: const EdgeInsets.all(16),
         child: ListView(
           children: <Widget>[
-            _textFormField(
+            AppText(
               'Login',
               'Digite seu LOGIN de acesso...',
               controller: _controllerLogin,
@@ -53,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
               nextFocus: _focusPassword,
             ),
             SizedBox(height: 10),
-            _textFormField(
+            AppText(
               'Senha',
               'Digite sua SENHA...',
               obscureText: true,
@@ -63,70 +65,12 @@ class _LoginPageState extends State<LoginPage> {
               focusNode: _focusPassword,
             ),
             SizedBox(height: 20),
-            _button('Login', _onClickLogin),
+            AppButton(
+              'Login',
+              onPressed: _onClickLogin,
+            ),
           ],
         ),
-      ),
-    );
-  }
-
-  _textFormField(
-    String label,
-    String hint, {
-    bool obscureText = false,
-    TextEditingController controller,
-    FormFieldValidator<String> validator,
-    TextInputType keyboardType,
-    TextInputAction textInputAction,
-    FocusNode focusNode,
-    FocusNode nextFocus,
-  }) {
-    return TextFormField(
-      controller: controller,
-      obscureText: obscureText,
-      validator: validator,
-      keyboardType: keyboardType,
-      textInputAction: textInputAction,
-      focusNode: focusNode,
-      onFieldSubmitted: (String text) {
-        if (nextFocus != null) {
-          FocusScope.of(context).requestFocus(nextFocus);
-        }
-      },
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        color: Colors.white70,
-        fontSize: 24,
-      ),
-      decoration: InputDecoration(
-        labelText: label,
-        labelStyle: TextStyle(
-          color: Colors.lightBlueAccent,
-          fontSize: 20,
-        ),
-        hintText: hint,
-        hintStyle: TextStyle(
-          color: Colors.white24,
-          fontSize: 22,
-        ),
-      ),
-    );
-  }
-
-  _button(String text, Function onPressed) {
-    return Container(
-      height: 46,
-      child: RaisedButton(
-        color: Colors.black.withAlpha(10),
-        child: Text(
-          text,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 22,
-            letterSpacing: 2,
-          ),
-        ),
-        onPressed: onPressed,
       ),
     );
   }
