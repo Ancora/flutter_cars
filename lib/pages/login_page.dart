@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _controllerLogin = TextEditingController();
   final _controllerPassword = TextEditingController();
+  final _focusPassword = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +48,9 @@ class LoginPage extends StatelessWidget {
               'Digite seu LOGIN de acesso...',
               controller: _controllerLogin,
               validator: _validateLogin,
+              keyboardType: TextInputType.emailAddress,
+              textInputAction: TextInputAction.next,
+              nextFocus: _focusPassword,
             ),
             SizedBox(height: 10),
             _textFormField(
@@ -45,6 +59,8 @@ class LoginPage extends StatelessWidget {
               obscureText: true,
               controller: _controllerPassword,
               validator: _validatePassword,
+              keyboardType: TextInputType.numberWithOptions(),
+              focusNode: _focusPassword,
             ),
             SizedBox(height: 20),
             _button('Login', _onClickLogin),
@@ -54,18 +70,29 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  // Métodos
   _textFormField(
     String label,
     String hint, {
     bool obscureText = false,
     TextEditingController controller,
     FormFieldValidator<String> validator,
+    TextInputType keyboardType,
+    TextInputAction textInputAction,
+    FocusNode focusNode,
+    FocusNode nextFocus,
   }) {
     return TextFormField(
       controller: controller,
       obscureText: obscureText,
       validator: validator,
+      keyboardType: keyboardType,
+      textInputAction: textInputAction,
+      focusNode: focusNode,
+      onFieldSubmitted: (String text) {
+        if (nextFocus != null) {
+          FocusScope.of(context).requestFocus(nextFocus);
+        }
+      },
       textAlign: TextAlign.center,
       style: TextStyle(
         color: Colors.white70,
