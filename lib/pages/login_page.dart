@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercars/pages/home_page.dart';
+import 'package:fluttercars/pages/login_api.dart';
 import 'package:fluttercars/utils/nav.dart';
 import 'package:fluttercars/widgets/app_button.dart';
 import 'package:fluttercars/widgets/app_text.dart';
@@ -77,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _onClickLogin() {
+  void _onClickLogin() async {
     bool formOk = _formKey.currentState.validate();
     String login = _controllerLogin.text;
     String password = _controllerPassword.text;
@@ -87,7 +88,13 @@ class _LoginPageState extends State<LoginPage> {
     }
     print('Login: $login Senha: $password');
 
-    push(context, HomePage());
+    bool ok = await LoginApi.login(login, password);
+
+    if (ok != null) {
+      push(context, HomePage());
+    } else {
+      print('Login inválido!');
+    }
   }
 
   String _validateLogin(String text) {
