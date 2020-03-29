@@ -108,8 +108,9 @@ class _LoginPageState extends State<LoginPage> {
   String _validatePassword(String text) {
     if (text.isEmpty) {
       return 'Campo SENHA obrigatório!';
-    } else if (text.length < 6) {
+      /* } else if (text.length < 6) {
       return 'Campo SENHA deve ter, no mínimo, 6 caracteres!';
+     */
     } else {
       return null;
     }
