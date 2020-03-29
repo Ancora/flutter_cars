@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fluttercars/pages/home_page.dart';
+import 'package:fluttercars/utils/nav.dart';
 import 'package:fluttercars/widgets/app_button.dart';
 import 'package:fluttercars/widgets/app_text.dart';
 
@@ -22,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Miniaturas de Carros'),
+        title: Text('Faça seu Login'),
         centerTitle: true,
       ),
       body: _body(),
@@ -83,9 +85,9 @@ class _LoginPageState extends State<LoginPage> {
     if (!formOk) {
       return;
     }
+    print('Login: $login Senha: $password');
 
-    print('$login');
-    print('$password');
+    push(context, HomePage());
   }
 
   String _validateLogin(String text) {
