@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercars/drawer_list.dart';
+import 'package:fluttercars/pages/carro/caroos_api.dart';
+import 'package:fluttercars/pages/carro/carro.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -15,6 +17,8 @@ class HomePage extends StatelessWidget {
   }
 
   _body() {
+    List<Carro> carros = CarrosApi.getCarros();
+
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -25,15 +29,30 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      child: Center(
-        child: Text(
-          'Anderson Rocha',
-          style: TextStyle(
-            fontSize: 22,
-            color: Colors.white,
-          ),
-        ),
-      ),
+      child: ListView.builder(
+          itemCount: carros.length,
+          itemBuilder: (context, index) {
+            Carro car = carros[index];
+            return Row(
+              children: <Widget>[
+                Image.network(
+                  car.urlFoto,
+                  width: 200,
+                ),
+                Flexible(
+                  child: Text(
+                    car.nome,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.lightBlueAccent,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }),
     );
   }
 }
