@@ -1,36 +1,14 @@
+import 'dart:convert';
+
 import 'package:fluttercars/pages/carro/carro.dart';
+import 'package:http/http.dart' as http;
 
 class CarrosApi {
   static Future<List<Carro>> getCarros() async {
-    final carros = List<Carro>();
+    var url = 'https://carros-springboot.herokuapp.com/api/v1/carros';
+    var response = await http.get(url);
 
-    await Future.delayed(Duration(seconds: 2));
-
-    carros.add(
-      Carro(
-          nome: 'Cadillac Convertibles 3',
-          urlFoto:
-              'http://www.livroandroid.com.br/livro/carros/classicos/Cadillac_Deville_Convertible.png'),
-    );
-    carros.add(
-      Carro(
-          nome: 'Chevrolet Bel-Air',
-          urlFoto:
-              'http://www.livroandroid.com.br/livro/carros/classicos/Chevrolet_BelAir.png'),
-    );
-    carros.add(
-      Carro(
-          nome: 'Cadillac Eldorado',
-          urlFoto:
-              'http://www.livroandroid.com.br/livro/carros/classicos/Cadillac_Eldorado.png'),
-    );
-    carros.add(
-      Carro(
-          nome: 'Lamborghini Aventador',
-          urlFoto:
-              'http://www.livroandroid.com.br/livro/carros/esportivos/Lamborghini_Aventador.png'),
-    );
-
-    return carros;
+    List mapResponse = jsonDecode(response.body);
+    return [];
   }
 }
