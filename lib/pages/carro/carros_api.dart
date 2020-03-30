@@ -1,8 +1,10 @@
 import 'package:fluttercars/pages/carro/carro.dart';
 
 class CarrosApi {
-  static List<Carro> getCarros() {
+  static Future<List<Carro>> getCarros() async {
     final carros = List<Carro>();
+
+    await Future.delayed(Duration(seconds: 2));
 
     carros.add(
       Carro(
@@ -21,6 +23,12 @@ class CarrosApi {
           nome: 'Cadillac Eldorado',
           urlFoto:
               'http://www.livroandroid.com.br/livro/carros/classicos/Cadillac_Eldorado.png'),
+    );
+    carros.add(
+      Carro(
+          nome: 'Lamborghini Aventador',
+          urlFoto:
+              'http://www.livroandroid.com.br/livro/carros/esportivos/Lamborghini_Aventador.png'),
     );
 
     return carros;

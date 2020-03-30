@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercars/drawer_list.dart';
-import 'package:fluttercars/pages/carro/caroos_api.dart';
+import 'package:fluttercars/pages/carro/carros_api.dart';
 import 'package:fluttercars/pages/carro/carro.dart';
 
 class HomePage extends StatelessWidget {
@@ -17,8 +17,27 @@ class HomePage extends StatelessWidget {
   }
 
   _body() {
-    List<Carro> carros = CarrosApi.getCarros();
+    Future<List<Carro>> future = CarrosApi.getCarros();
 
+    return FutureBuilder(
+      future: future,
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Center(
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(
+                Colors.lightBlueAccent,
+              ),
+            ),
+          );
+        }
+        List<Carro> carros = snapshot.data;
+        return _listView(carros);
+      },
+    );
+  }
+
+  Container _listView(List<Carro> carros) {
     return Container(
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -31,7 +50,7 @@ class HomePage extends StatelessWidget {
         ),
       ),
       child: ListView.builder(
-          itemCount: carros.length,
+          itemCount: carros != null ? carros.length : 0,
           itemBuilder: (context, index) {
             Carro car = carros[index];
             return Card(
