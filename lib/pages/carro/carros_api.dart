@@ -11,12 +11,12 @@ class CarrosApi {
 
     List list = jsonDecode(response.body);
 
-    final carros = List<Carro>();
+    return list.map<Carro>((map) => Carro.fromJson(map)).toList();
 
-    for (Map map in list) {
+    /* for (Map map in list) {
       Carro car = Carro.fromJson(map);
       carros.add(car);
     }
-    return carros;
+    return carros;*/
   }
 }
