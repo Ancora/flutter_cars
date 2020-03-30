@@ -1,6 +1,6 @@
 class Usuario {
   String login;
-  String name;
+  String nome;
   String email;
   String token;
 
@@ -8,7 +8,7 @@ class Usuario {
 
   Usuario.fromJson(Map<String, dynamic> map)
       : login = map['login'],
-        name = map['nome'],
+        nome = map['nome'],
         email = map['email'],
         token = map['token'],
         roles = map['roles'] != null
@@ -21,7 +21,7 @@ class Usuario {
 
   @override
   String toString() {
-    return 'Usuario(login: $login, nome: $name, email: $email, token: $token, roles: $roles)';
+    return 'Usuario(login: $login, nome: $nome, email: $email, token: $token, roles: $roles)';
   }
 
   // static List<String> getRoles(Map<String, dynamic> map) {

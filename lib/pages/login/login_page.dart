@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercars/pages/api_response.dart';
-import 'package:fluttercars/pages/home_page.dart';
-import 'package:fluttercars/pages/login_api.dart';
-import 'package:fluttercars/pages/usuario.dart';
+import 'package:fluttercars/pages/carro/home_page.dart';
+import 'package:fluttercars/pages/login/login_api.dart';
+import 'package:fluttercars/pages/login/usuario.dart';
 import 'package:fluttercars/utils/alert.dart';
 import 'package:fluttercars/utils/nav.dart';
 import 'package:fluttercars/widgets/app_button.dart';
