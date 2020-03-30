@@ -40,23 +40,29 @@ class _HomePageState extends State<HomePage>
       appBar: AppBar(
         title: Text('Miniatura de Carros'),
         centerTitle: true,
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: [
-            Tab(text: 'Clássicos'),
-            Tab(text: 'Esportivos'),
-            Tab(text: 'Luxo'),
-          ],
-        ),
+        bottom: _tabController == null
+            ? null
+            : TabBar(
+                controller: _tabController,
+                tabs: [
+                  Tab(text: 'Clássicos'),
+                  Tab(text: 'Esportivos'),
+                  Tab(text: 'Luxo'),
+                ],
+              ),
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          CarrosListView(TipoCarro.classicos),
-          CarrosListView(TipoCarro.esportivos),
-          CarrosListView(TipoCarro.luxo),
-        ],
-      ),
+      body: _tabController == null
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : TabBarView(
+              controller: _tabController,
+              children: [
+                CarrosListView(TipoCarro.classicos),
+                CarrosListView(TipoCarro.esportivos),
+                CarrosListView(TipoCarro.luxo),
+              ],
+            ),
       drawer: DrawerList(),
     );
   }
