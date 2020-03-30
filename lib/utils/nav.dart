@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
 
-push(BuildContext context, Widget page) {
+push(BuildContext context, Widget page, {bool replace = false}) {
+  if (replace) {
+    return Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return page;
+        },
+      ),
+    );
+  }
   return Navigator.push(
     context,
     MaterialPageRoute(
