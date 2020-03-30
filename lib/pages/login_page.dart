@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fluttercars/pages/api_response.dart';
 import 'package:fluttercars/pages/home_page.dart';
 import 'package:fluttercars/pages/login_api.dart';
 import 'package:fluttercars/pages/usuario.dart';
+import 'package:fluttercars/utils/alert.dart';
 import 'package:fluttercars/utils/nav.dart';
 import 'package:fluttercars/widgets/app_button.dart';
 import 'package:fluttercars/widgets/app_text.dart';
@@ -89,13 +91,14 @@ class _LoginPageState extends State<LoginPage> {
     }
     print('Login: $login Senha: $password');
 
-    Usuario user = await LoginApi.login(login, password);
+    ApiResponse response = await LoginApi.login(login, password);
 
-    if (user != null) {
+    if (response.ok) {
+      Usuario user = response.result;
       print('Usuário: $user');
       push(context, HomePage());
     } else {
-      print('Login inválido!');
+      alert(context, response.msg);
     }
   }
 
