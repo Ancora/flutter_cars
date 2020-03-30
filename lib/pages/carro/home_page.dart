@@ -20,6 +20,7 @@ class HomePage extends StatelessWidget {
     List<Carro> carros = CarrosApi.getCarros();
 
     return Container(
+      padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
@@ -33,24 +34,50 @@ class HomePage extends StatelessWidget {
           itemCount: carros.length,
           itemBuilder: (context, index) {
             Carro car = carros[index];
-            return Row(
-              children: <Widget>[
-                Image.network(
-                  car.urlFoto,
-                  width: 200,
-                ),
-                Flexible(
-                  child: Text(
-                    car.nome,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 25,
-                      color: Colors.lightBlueAccent,
+            return Card(
+              color: Color.fromRGBO(0, 0, 0, 0),
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Center(
+                      child: Image.network(
+                        car.urlFoto,
+                        width: 250,
+                      ),
                     ),
-                  ),
+                    Text(
+                      car.nome,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.lightBlueAccent,
+                      ),
+                    ),
+                    Text(
+                      'descrição...',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.lightBlueAccent,
+                      ),
+                    ),
+                    ButtonBar(
+                      children: <Widget>[
+                        FlatButton(
+                          child: const Text('DETALHES'),
+                          onPressed: () {/* ... */},
+                        ),
+                        FlatButton(
+                          child: const Text('SHARE'),
+                          onPressed: () {/* ... */},
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ],
+              ),
             );
           }),
     );
