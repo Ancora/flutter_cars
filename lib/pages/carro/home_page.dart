@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttercars/drawer_list.dart';
 import 'package:fluttercars/pages/carro/carros_api.dart';
 import 'package:fluttercars/pages/carro/carros_listview.dart';
+import 'package:fluttercars/utils/prefs.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -17,9 +18,15 @@ class _HomePageState extends State<HomePage>
     super.initState();
 
     _tabController = TabController(length: 3, vsync: this);
-    _tabController.index = 1;
+
+    Future<int> future = Prefs.getInt('tabIdx');
+
+    future.then((int tabIdx) {
+      _tabController.index = tabIdx;
+    });
+
     _tabController.addListener(() {
-      print('Tab ${_tabController.index}');
+      Prefs.setInt('tabIdx', _tabController.index);
     });
   }
 
