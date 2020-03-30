@@ -73,12 +73,13 @@ class HomePage extends StatelessWidget {
                   children: <Widget>[
                     Center(
                       child: Image.network(
-                        car.urlFoto,
+                        car.urlFoto ??
+                            'http://www.livroandroid.com.br/livro/carros/luxo/Lamborghini_Reventon.png',
                         width: 250,
                       ),
                     ),
                     Text(
-                      car.nome,
+                      car.nome ?? 'Sem nome',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
