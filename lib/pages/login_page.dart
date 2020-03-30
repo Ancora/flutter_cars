@@ -18,6 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   final _controllerLogin = TextEditingController();
   final _controllerPassword = TextEditingController();
   final _focusPassword = FocusNode();
+  bool _showProgress = false;
 
   @override
   void initState() {
@@ -36,6 +37,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _body() {
+    _showProgress = false;
     return Form(
       key: _formKey,
       child: Container(
@@ -74,6 +76,7 @@ class _LoginPageState extends State<LoginPage> {
             AppButton(
               'Login',
               onPressed: _onClickLogin,
+              showProgress: _showProgress,
             ),
           ],
         ),
