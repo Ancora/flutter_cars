@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercars/drawer_list.dart';
+import 'package:fluttercars/pages/carro/carros_api.dart';
 import 'package:fluttercars/pages/carro/carros_listview.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin<HomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -20,9 +27,9 @@ class HomePage extends StatelessWidget {
           ),
         ),
         body: TabBarView(children: [
-          CarrosListView(),
-          CarrosListView(),
-          CarrosListView(),
+          CarrosListView(TipoCarro.classicos),
+          CarrosListView(TipoCarro.esportivos),
+          CarrosListView(TipoCarro.luxo),
         ]),
         drawer: DrawerList(),
       ),

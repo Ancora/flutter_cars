@@ -3,9 +3,19 @@ import 'dart:convert';
 import 'package:fluttercars/pages/carro/carro.dart';
 import 'package:http/http.dart' as http;
 
+/* enum TipoCarro { CLASSICOS, ESPORTIVOS, LUXO } */
+class TipoCarro {
+  static final String classicos = 'classicos';
+  static final String esportivos = 'esportivos';
+  static final String luxo = 'luxo';
+}
+
 class CarrosApi {
-  static Future<List<Carro>> getCarros() async {
-    var url = 'https://carros-springboot.herokuapp.com/api/v1/carros';
+  static Future<List<Carro>> getCarros(String tipo) async {
+    /* String soTipo = tipo.toString().replaceAll('TipoCarro.', ''); */
+
+    var url =
+        'https://carros-springboot.herokuapp.com/api/v1/carros/tipo/$tipo';
     print('GET => $url');
     var response = await http.get(url);
 
