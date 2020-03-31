@@ -23,6 +23,17 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+    Future<Usuario> future = Usuario.get();
+    future.then((Usuario user) {
+      if (user != null) {
+        /* Mantém o nome do usuário no campo, após reiniciar o app
+        setState(() {
+          _controllerLogin.text = user.login;
+        }); */
+        /* Mantém o usuário conectado (login automático) */
+        push(context, HomePage(), replace: true);
+      }
+    });
   }
 
   @override

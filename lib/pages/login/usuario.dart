@@ -42,16 +42,21 @@ class Usuario {
     return data;
   }
 
+  static void clear() {
+    Prefs.setString('user.prefs', '');
+  }
+
   void save() {
     Map map = toJson();
-
     String json = convert.jsonEncode(map);
-
     Prefs.setString('user.prefs', json);
   }
 
   static Future<Usuario> get() async {
     String json = await Prefs.getString('user.prefs');
+    if (json.isEmpty) {
+      return null;
+    }
     Map map = convert.jsonDecode(json);
     Usuario user = Usuario.fromJson(map);
     return user;
