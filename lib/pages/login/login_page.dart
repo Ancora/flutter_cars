@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fluttercars/pages/api_response.dart';
 import 'package:fluttercars/pages/carro/home_page.dart';
@@ -15,10 +17,10 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
+  final _streamController = StreamController<bool>();
   final _controllerLogin = TextEditingController();
   final _controllerPassword = TextEditingController();
   final _focusPassword = FocusNode();
-  bool _showProgress = false;
 
   @override
   void initState() {
@@ -83,11 +85,16 @@ class _LoginPageState extends State<LoginPage> {
               focusNode: _focusPassword,
             ),
             SizedBox(height: 20),
-            AppButton(
-              'Login',
-              onPressed: _onClickLogin,
-              showProgress: _showProgress,
-            ),
+            StreamBuilder<bool>(
+                stream: _streamController.stream,
+                initialData: false,
+                builder: (context, snapshot) {
+                  return AppButton(
+                    'Login',
+                    onPressed: _onClickLogin,
+                    showProgress: snapshot.data,
+                  );
+                }),
           ],
         ),
       ),
@@ -103,23 +110,17 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
-    setState(() {
-      _showProgress = true;
-    });
+    _streamController.add(true);
 
     ApiResponse response = await LoginApi.login(login, password);
 
     if (response.ok) {
-      //Usuario user = response.result;
-      /* print('Usuário: $user'); */
       push(context, HomePage(), replace: true);
     } else {
       alert(context, response.msg);
     }
 
-    setState(() {
-      _showProgress = false;
-    });
+    _streamController.add(false);
   }
 
   String _validateLogin(String text) {
