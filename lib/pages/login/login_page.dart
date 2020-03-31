@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttercars/pages/api_response.dart';
 import 'package:fluttercars/pages/carro/home_page.dart';
-import 'package:fluttercars/pages/login/login_api.dart';
+import 'package:fluttercars/pages/login/login_bloc.dart';
 import 'package:fluttercars/pages/login/usuario.dart';
 import 'package:fluttercars/utils/alert.dart';
 import 'package:fluttercars/utils/nav.dart';
@@ -17,7 +17,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  final _streamController = StreamController<bool>();
+  final _bloc = LoginBloc();
   final _controllerLogin = TextEditingController();
   final _controllerPassword = TextEditingController();
   final _focusPassword = FocusNode();
@@ -86,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             SizedBox(height: 20),
             StreamBuilder<bool>(
-                stream: _streamController.stream,
+                stream: _bloc.stream,
                 initialData: false,
                 builder: (context, snapshot) {
                   return AppButton(
@@ -110,17 +110,13 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
-    _streamController.add(true);
-
-    ApiResponse response = await LoginApi.login(login, password);
+    ApiResponse response = await _bloc.login(login, password);
 
     if (response.ok) {
       push(context, HomePage(), replace: true);
     } else {
       alert(context, response.msg);
     }
-
-    _streamController.add(false);
   }
 
   String _validateLogin(String text) {
@@ -145,6 +141,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void dispose() {
     super.dispose();
-    _streamController.close();
+    _bloc.dispose();
   }
 }
