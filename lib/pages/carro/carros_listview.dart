@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fluttercars/pages/carro/carro.dart';
 import 'package:fluttercars/pages/carro/carros_api.dart';
@@ -15,18 +17,20 @@ class CarrosListView extends StatefulWidget {
 class _CarrosListViewState extends State<CarrosListView>
     with AutomaticKeepAliveClientMixin<CarrosListView> {
   List<Carro> carros;
+  final _streamController = StreamController<List<Carro>>();
+
   @override
   bool get wantKeepAlive => true;
 
   @override
   void initState() {
     super.initState();
-
-    _loadData();
+    _loadCarros();
   }
 
-  _loadData() async {
+  _loadCarros() async {
     List<Carro> carros = await CarrosApi.getCarros(widget.tipo);
+    _streamController.add(carros);
     setState(() {
       this.carros = carros;
     });
@@ -35,20 +39,6 @@ class _CarrosListViewState extends State<CarrosListView>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-
-    if (carros == null) {
-      return Center(
-        child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(
-            Colors.lightBlueAccent,
-          ),
-        ),
-      );
-    }
-    return _listView(carros);
-  }
-
-  Container _listView(List<Carro> carros) {
     return Container(
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -60,6 +50,38 @@ class _CarrosListViewState extends State<CarrosListView>
           ],
         ),
       ),
+      child: StreamBuilder(
+        stream: _streamController.stream,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(
+              child: Text(
+                'Não foi possível buscar a lista de carros!',
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 22,
+                ),
+              ),
+            );
+          }
+          if (!snapshot.hasData) {
+            return Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  Colors.lightBlueAccent,
+                ),
+              ),
+            );
+          }
+          List<Carro> carros = snapshot.data;
+          return _listView(carros);
+        },
+      ),
+    );
+  }
+
+  Container _listView(List<Carro> carros) {
+    return Container(
       child: ListView.builder(
           itemCount: carros != null ? carros.length : 0,
           itemBuilder: (context, index) {
