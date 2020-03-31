@@ -20,11 +20,7 @@ class LoginApi {
       };
 
       String s = jsonEncode(params);
-
       var response = await http.post(url, body: s, headers: headers);
-      /* print('Response status: ${response.statusCode}');
-      print('Response body: ${response.body}'); */
-
       Map mapResponse = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
