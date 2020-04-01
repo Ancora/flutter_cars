@@ -1,40 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercars/pages/carro/carro.dart';
-import 'package:fluttercars/pages/carro/carros_bloc.dart';
 import 'package:fluttercars/utils/nav.dart';
 import 'package:fluttercars/pages/carro/carro_page.dart';
-import 'package:fluttercars/widgets/text_error.dart';
 
-class CarrosListView extends StatefulWidget {
-  final String tipo;
-  CarrosListView(this.tipo);
-
-  @override
-  _CarrosListViewState createState() => _CarrosListViewState();
-}
-
-class _CarrosListViewState extends State<CarrosListView>
-    with AutomaticKeepAliveClientMixin<CarrosListView> {
-  final _bloc = CarrosBloc();
-  List<Carro> carros;
-  String get tipo => widget.tipo;
-
-  @override
-  bool get wantKeepAlive => true;
-
-  @override
-  void initState() {
-    super.initState();
-    _fetch();
-  }
-
-  void _fetch() {
-    _bloc.fetch(tipo);
-  }
+class CarrosListView extends StatelessWidget {
+  final List<Carro> carros;
+  CarrosListView(this.carros);
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Container(
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -46,33 +20,6 @@ class _CarrosListViewState extends State<CarrosListView>
           ],
         ),
       ),
-      child: StreamBuilder(
-        stream: _bloc.stream,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return TextError(
-              'Não foi possível buscar a lista de carros!\n\nClique aqui para tentar novamente.',
-              onPressed: _fetch,
-            );
-          }
-          if (!snapshot.hasData) {
-            return Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  Colors.lightBlueAccent,
-                ),
-              ),
-            );
-          }
-          List<Carro> carros = snapshot.data;
-          return _listView(carros);
-        },
-      ),
-    );
-  }
-
-  Container _listView(List<Carro> carros) {
-    return Container(
       child: ListView.builder(
           itemCount: carros != null ? carros.length : 0,
           itemBuilder: (context, index) {
@@ -111,7 +58,7 @@ class _CarrosListViewState extends State<CarrosListView>
                       children: <Widget>[
                         FlatButton(
                           child: const Text('DETALHES'),
-                          onPressed: () => _onClickCarro(car),
+                          onPressed: () => _onClickCarro(context, car),
                         ),
                         FlatButton(
                           child: const Text('SHARE'),
@@ -127,13 +74,7 @@ class _CarrosListViewState extends State<CarrosListView>
     );
   }
 
-  _onClickCarro(Carro car) {
+  _onClickCarro(context, Carro car) {
     push(context, CarroPage(car));
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _bloc.dispose();
   }
 }
