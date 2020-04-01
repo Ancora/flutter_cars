@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttercars/pages/carro/carro.dart';
-import 'package:fluttercars/pages/carro/carros_bloc.dart';
+import 'package:fluttercars/pages/carro/carros_model.dart';
 import 'package:fluttercars/utils/nav.dart';
 import 'package:fluttercars/pages/carro/carro_page.dart';
 import 'package:fluttercars/widgets/text_error.dart';
@@ -15,7 +16,7 @@ class CarrosListView extends StatefulWidget {
 
 class _CarrosListViewState extends State<CarrosListView>
     with AutomaticKeepAliveClientMixin<CarrosListView> {
-  final _bloc = CarrosBloc();
+  final _model = CarrosModel();
   List<Carro> carros;
   String get tipo => widget.tipo;
 
@@ -29,7 +30,7 @@ class _CarrosListViewState extends State<CarrosListView>
   }
 
   void _fetch() {
-    _bloc.fetch(tipo);
+    _model.fetch(tipo);
   }
 
   @override
@@ -46,16 +47,16 @@ class _CarrosListViewState extends State<CarrosListView>
           ],
         ),
       ),
-      child: StreamBuilder(
-        stream: _bloc.stream,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
+      child: Observer(
+        builder: (_) {
+          List<Carro> carros = _model.carros;
+          if (_model.error != null) {
             return TextError(
               'Não foi possível buscar a lista de carros!\n\nClique aqui para tentar novamente.',
               onPressed: _fetch,
             );
           }
-          if (!snapshot.hasData) {
+          if (carros == null) {
             return Center(
               child: CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(
@@ -64,7 +65,7 @@ class _CarrosListViewState extends State<CarrosListView>
               ),
             );
           }
-          List<Carro> carros = snapshot.data;
+
           return _listView(carros);
         },
       ),
@@ -107,17 +108,20 @@ class _CarrosListViewState extends State<CarrosListView>
                         color: Colors.lightBlueAccent,
                       ),
                     ),
-                    ButtonBar(
-                      children: <Widget>[
-                        FlatButton(
-                          child: const Text('DETALHES'),
-                          onPressed: () => _onClickCarro(car),
-                        ),
-                        FlatButton(
-                          child: const Text('SHARE'),
-                          onPressed: () {/* ... */},
-                        ),
-                      ],
+                    ButtonBarTheme(
+                      data: ButtonBarThemeData(),
+                      child: ButtonBar(
+                        children: <Widget>[
+                          FlatButton(
+                            child: const Text('DETALHES'),
+                            onPressed: () => _onClickCarro(car),
+                          ),
+                          FlatButton(
+                            child: const Text('SHARE'),
+                            onPressed: () {/* ... */},
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -129,11 +133,5 @@ class _CarrosListViewState extends State<CarrosListView>
 
   _onClickCarro(Carro car) {
     push(context, CarroPage(car));
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _bloc.dispose();
   }
 }
