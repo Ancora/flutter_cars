@@ -6,7 +6,7 @@ Text text(
   color = Colors.lightBlueAccent,
   bold = false,
 }) {
-  return Texst(
+  return Text(
     texto ?? '',
     style: TextStyle(
       fontSize: fontSize,

@@ -62,36 +62,58 @@ class CarroPage extends StatelessWidget {
       child: ListView(
         children: <Widget>[
           Image.network(carro.urlFoto),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  text(carro.nome, fontSize: 20, bold: true),
-                  text(carro.tipo),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.favorite),
-                    color: Colors.red,
-                    iconSize: 36,
-                    onPressed: _onClickFavorito,
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.share),
-                    color: Colors.lightBlueAccent,
-                    iconSize: 36,
-                    onPressed: _onClickShare,
-                  ),
-                ],
-              ),
-            ],
-          )
+          _bloco1(),
+          Divider(color: Colors.lightBlueAccent),
+          _bloco2(),
         ],
       ),
+    );
+  }
+
+  Row _bloco1() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            text(carro.nome, fontSize: 20, bold: true),
+            text(carro.tipo),
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            IconButton(
+              icon: Icon(Icons.favorite),
+              color: Colors.red,
+              iconSize: 36,
+              onPressed: _onClickFavorito,
+            ),
+            IconButton(
+              icon: Icon(Icons.share),
+              color: Colors.lightBlueAccent,
+              iconSize: 36,
+              onPressed: _onClickShare,
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  _bloco2() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        text(carro.descricao, fontSize: 18, bold: true),
+        SizedBox(
+          height: 20,
+        ),
+        text(
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu tortor eu risus placerat finibus sed sed odio. Proin vitae suscipit ante, eu dignissim velit. Suspendisse potenti. Donec egestas tellus id turpis consectetur aliquet. Duis nec tristique lectus. Vestibulum ac odio ac ligula interdum ornare. In vitae convallis nunc. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu tortor eu risus placerat finibus sed sed odio. Proin vitae suscipit ante, eu dignissim velit. Suspendisse potenti. Donec egestas tellus id turpis consectetur aliquet. Duis nec tristique lectus. Vestibulum ac odio ac ligula interdum ornare. In vitae convallis nunc. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu tortor eu risus placerat finibus sed sed odio. Proin vitae suscipit ante, eu dignissim velit. Suspendisse potenti. Donec egestas tellus id turpis consectetur aliquet. Duis nec tristique lectus. Vestibulum ac odio ac ligula interdum ornare. In vitae convallis nunc. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu tortor eu risus placerat finibus sed sed odio. Proin vitae suscipit ante, eu dignissim velit. Suspendisse potenti. Donec egestas tellus id turpis consectetur aliquet. Duis nec tristique lectus. Vestibulum ac odio ac ligula interdum ornare. In vitae convallis nunc.',
+          fontSize: 18,
+        ),
+      ],
     );
   }
 
