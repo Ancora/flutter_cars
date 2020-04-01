@@ -2,12 +2,14 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 
 class LoripsumBloc {
+  static String lorim;
   final _streamController = StreamController<String>();
   Stream<String> get stream => _streamController.stream;
 
   fetch() async {
     try {
-      String s = await LoripsumApi.getLoripsum();
+      String s = lorim ?? await LoripsumApi.getLoripsum();
+      lorim = s;
       _streamController.add(s);
     } catch (e) {
       _streamController.addError(e);
