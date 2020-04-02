@@ -1,6 +1,6 @@
-import 'package:fluttercars/pages/carro/carro.dart';
-import 'package:fluttercars/pages/carro/carros_api.dart';
-import 'package:fluttercars/pages/carro/simple_bloc.dart';
+import 'package:fluttercars/pages/carros/carro.dart';
+import 'package:fluttercars/pages/carros/carros_api.dart';
+import 'package:fluttercars/pages/carros/simple_bloc.dart';
 
 class CarrosBloc extends SimpleBloc<List<Carro>> {
   Future<List<Carro>> fetch(String tipo) async {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fluttercars/pages/carro/carro.dart';
-import 'package:fluttercars/pages/carro/carros_bloc.dart';
-import 'package:fluttercars/pages/carro/carros_listview.dart';
+import 'package:fluttercars/pages/carros/carro.dart';
+import 'package:fluttercars/pages/carros/carros_bloc.dart';
+import 'package:fluttercars/pages/carros/carros_listview.dart';
 import 'package:fluttercars/widgets/text_error.dart';
 
 class CarrosPage extends StatefulWidget {
