@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fluttercars/pages/carro/carro.dart';
+import 'package:fluttercars/pages/carros/carro.dart';
 import 'package:fluttercars/utils/nav.dart';
-import 'package:fluttercars/pages/carro/carro_page.dart';
+import 'package:fluttercars/pages/carros/carro_page.dart';
 
 class CarrosListView extends StatelessWidget {
   final List<Carro> carros;

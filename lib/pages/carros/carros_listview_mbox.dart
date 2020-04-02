@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:fluttercars/pages/carro/carro.dart';
-import 'package:fluttercars/pages/carro/carros_model.dart';
+import 'package:fluttercars/pages/carros/carro.dart';
+import 'package:fluttercars/pages/carros/carros_model.dart';
 import 'package:fluttercars/utils/nav.dart';
-import 'package:fluttercars/pages/carro/carro_page.dart';
+import 'package:fluttercars/pages/carros/carro_page.dart';
 import 'package:fluttercars/widgets/text_error.dart';
 
 class CarrosListView extends StatefulWidget {

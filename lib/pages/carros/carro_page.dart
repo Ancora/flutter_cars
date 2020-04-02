@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fluttercars/pages/carro/carro.dart';
-import 'package:fluttercars/pages/carro/loripsum_api.dart';
+import 'package:fluttercars/pages/carros/carro.dart';
+import 'package:fluttercars/pages/carros/loripsum_api.dart';
 import 'package:fluttercars/widgets/text.dart';
 
 class CarroPage extends StatefulWidget {

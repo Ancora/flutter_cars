@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-import 'package:fluttercars/pages/carro/carro.dart';
+import 'package:fluttercars/pages/carros/carro.dart';
+import 'package:fluttercars/pages/favoritos/carro_dao.dart';
 import 'package:fluttercars/pages/login/usuario.dart';
 import 'package:http/http.dart' as http;
 
@@ -26,6 +27,16 @@ class CarrosApi {
     print(url);
 
     List list = jsonDecode(response.body);
-    return list.map<Carro>((map) => Carro.fromJson(map)).toList();
+    List<Carro> carros = list.map<Carro>((map) => Carro.fromJson(map)).toList();
+
+    final dao = CarroDAO();
+    // Salvando todos os carros:
+    /* for (Carro car in carros) {
+      dao.save(car);
+    } OU */
+    /* carros.forEach((car) => dao.save(car)); OU */
+    carros.forEach(dao.save);
+
+    return carros;
   }
 }

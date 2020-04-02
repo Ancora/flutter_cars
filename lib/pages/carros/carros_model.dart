@@ -1,5 +1,5 @@
-import 'package:fluttercars/pages/carro/carro.dart';
-import 'package:fluttercars/pages/carro/carros_api.dart';
+import 'package:fluttercars/pages/carros/carro.dart';
+import 'package:fluttercars/pages/carros/carros_api.dart';
 import 'package:mobx/mobx.dart';
 
 part 'carros_model.g.dart';
