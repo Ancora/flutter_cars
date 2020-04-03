@@ -53,7 +53,11 @@ class _HomePageState extends State<HomePage>
       ),
       body: _tabController == null
           ? Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  Colors.lightBlueAccent,
+                ),
+              ),
             )
           : TabBarView(
               controller: _tabController,

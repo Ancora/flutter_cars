@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttercars/pages/login/login_page.dart';
+import 'package:fluttercars/splash_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         primaryColor: Color.fromARGB(255, 0, 0, 205),
       ),
-      home: LoginPage(),
+      home: SplashPage(),
     );
   }
 }

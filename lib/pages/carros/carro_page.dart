@@ -128,7 +128,11 @@ class _CarroPageState extends State<CarroPage> {
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    Colors.lightBlueAccent,
+                  ),
+                ),
               );
             }
             return text(snapshot.data, fontSize: 18);

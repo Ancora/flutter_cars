@@ -1,10 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:fluttercars/pages/api_response.dart';
 import 'package:fluttercars/pages/carros/home_page.dart';
 import 'package:fluttercars/pages/login/login_bloc.dart';
-import 'package:fluttercars/pages/login/usuario.dart';
 import 'package:fluttercars/utils/alert.dart';
 import 'package:fluttercars/utils/nav.dart';
 import 'package:fluttercars/widgets/app_button.dart';
@@ -25,17 +22,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    Future<Usuario> future = Usuario.get();
-    future.then((Usuario user) {
-      if (user != null) {
-        /* Mantém o nome do usuário no campo, após reiniciar o app
-        setState(() {
-          _controllerLogin.text = user.login;
-        }); */
-        /* Mantém o usuário conectado (login automático) */
-        push(context, HomePage(), replace: true);
-      }
-    });
   }
 
   @override
