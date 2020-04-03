@@ -9,3 +9,8 @@ CREATE TABLE carro
   latitude TEXT,
   longitude TEXT
 );
+CREATE TABLE favorito
+(
+  id INTEGER PRIMARY KEY,
+  nome TEXT,
+);

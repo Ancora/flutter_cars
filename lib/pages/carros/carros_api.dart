@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:fluttercars/pages/carros/carro.dart';
-import 'package:fluttercars/pages/favoritos/carro_dao.dart';
 import 'package:fluttercars/pages/login/usuario.dart';
 import 'package:http/http.dart' as http;
 
