@@ -20,7 +20,7 @@ class Usuario {
       this.token,
       this.roles});
 
-  Usuario.fromJson(Map<String, dynamic> json) {
+  Usuario.fromMap(Map<String, dynamic> json) {
     id = json['id'];
     login = json['login'];
     nome = json['nome'];
@@ -30,7 +30,7 @@ class Usuario {
     roles = json['roles'].cast<String>();
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['login'] = this.login;
@@ -47,7 +47,7 @@ class Usuario {
   }
 
   void save() {
-    Map map = toJson();
+    Map map = toMap();
     String json = convert.jsonEncode(map);
     Prefs.setString('user.prefs', json);
   }
@@ -58,7 +58,7 @@ class Usuario {
       return null;
     }
     Map map = convert.jsonDecode(json);
-    Usuario user = Usuario.fromJson(map);
+    Usuario user = Usuario.fromMap(map);
     return user;
   }
 
