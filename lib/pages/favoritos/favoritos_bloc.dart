@@ -10,11 +10,6 @@ class FavoritosBloc extends SimpleBloc<List<Carro>> {
 
       if (carros.isNotEmpty) {
         final dao = CarroDAO();
-        // Salvando todos os carros:
-        /* for (Carro car in carros) {
-          dao.save(car);
-        } OU */
-        /* carros.forEach((car) => dao.save(car)); OU */
         carros.forEach(dao.save);
       }
 

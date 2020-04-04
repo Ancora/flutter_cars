@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage>
                     text: 'Luxo',
                     icon: Icon(Icons.directions_car),
                   ),
-                  Tab(
+                   Tab(
                     text: 'Favoritos',
                     icon: Icon(Icons.favorite),
                   ),
