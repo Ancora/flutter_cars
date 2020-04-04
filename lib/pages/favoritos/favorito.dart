@@ -1,8 +1,14 @@
 import 'package:fluttercars/utils/sql/entity.dart';
+import 'package:fluttercars/pages/carros/carro.dart';
 
 class Favorito extends Entity {
   int id;
   String nome;
+
+  Favorito.fromCarro(Carro car) {
+    id = car.id;
+    nome = car.nome;
+  }
 
   Favorito.fromMap(Map<String, dynamic> json) {
     id = json['id'];
