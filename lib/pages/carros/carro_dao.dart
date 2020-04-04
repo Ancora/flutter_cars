@@ -1,5 +1,5 @@
 import 'package:fluttercars/pages/carros/carro.dart';
-import 'package:fluttercars/pages/favoritos/base_dao.dart';
+import 'package:fluttercars/utils/sql/base_dao.dart';
 
 // Data Access Object
 class CarroDAO extends BaseDAO<Carro> {
@@ -14,8 +14,8 @@ class CarroDAO extends BaseDAO<Carro> {
   Future<List<Carro>> findAllByTipo(String tipo) async {
     final dbClient = await db;
 
-    final list = await dbClient
-        .rawQuery('select * from carro where tipo =? ', [tipo]);
+    final list =
+        await dbClient.rawQuery('select * from carro where tipo =? ', [tipo]);
 
     return list.map<Carro>((json) => fromMap(json)).toList();
   }

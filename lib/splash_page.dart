@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercars/pages/carros/home_page.dart';
-import 'package:fluttercars/pages/favoritos/db_helper.dart';
+import 'package:fluttercars/utils/sql/db_helper.dart';
 import 'package:fluttercars/pages/login/login_page.dart';
 import 'package:fluttercars/pages/login/usuario.dart';
 import 'package:fluttercars/utils/nav.dart';

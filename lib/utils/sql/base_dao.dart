@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:fluttercars/pages/favoritos/db_helper.dart';
-import 'package:fluttercars/pages/favoritos/entity.dart';
+import 'package:fluttercars/utils/sql/db_helper.dart';
+import 'package:fluttercars/utils/sql/entity.dart';
 import 'package:sqflite/sqflite.dart';
 
 // Data Access Object

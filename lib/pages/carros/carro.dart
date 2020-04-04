@@ -1,4 +1,4 @@
-import 'package:fluttercars/pages/favoritos/entity.dart';
+import 'package:fluttercars/utils/sql/entity.dart';
 
 class Carro extends Entity {
   int id;

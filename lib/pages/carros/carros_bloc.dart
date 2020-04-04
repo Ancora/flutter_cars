@@ -1,7 +1,7 @@
 import 'package:fluttercars/pages/carros/carro.dart';
 import 'package:fluttercars/pages/carros/carros_api.dart';
 import 'package:fluttercars/pages/carros/simple_bloc.dart';
-import 'package:fluttercars/pages/favoritos/carro_dao.dart';
+import 'package:fluttercars/pages/carros/carro_dao.dart';
 import 'package:fluttercars/utils/network.dart';
 
 class CarrosBloc extends SimpleBloc<List<Carro>> {
