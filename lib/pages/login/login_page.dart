@@ -59,6 +59,7 @@ class _LoginPageState extends State<LoginPage> {
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
               nextFocus: _focusPassword,
+              textAlign: TextAlign.center,
             ),
             SizedBox(height: 10),
             AppText(
@@ -69,6 +70,7 @@ class _LoginPageState extends State<LoginPage> {
               validator: _validatePassword,
               keyboardType: TextInputType.numberWithOptions(),
               focusNode: _focusPassword,
+              textAlign: TextAlign.center,
             ),
             SizedBox(height: 20),
             StreamBuilder<bool>(

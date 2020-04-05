@@ -10,6 +10,7 @@ class AppText extends StatelessWidget {
   final TextInputAction textInputAction;
   final FocusNode focusNode;
   final FocusNode nextFocus;
+  final TextAlign textAlign;
 
   AppText(
     this.label,
@@ -21,6 +22,7 @@ class AppText extends StatelessWidget {
     this.textInputAction,
     this.focusNode,
     this.nextFocus,
+    this.textAlign,
   });
 
   @override
@@ -37,7 +39,7 @@ class AppText extends StatelessWidget {
           FocusScope.of(context).requestFocus(nextFocus);
         }
       },
-      textAlign: TextAlign.center,
+      //textAlign: TextAlign.center,
       style: TextStyle(
         color: Colors.white70,
         fontSize: 24,
