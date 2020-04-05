@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttercars/drawer_list.dart';
 import 'package:fluttercars/pages/carros/carros_api.dart';
 import 'package:fluttercars/pages/carros/carros_page.dart';
+import 'package:fluttercars/utils/alert.dart';
 import 'package:fluttercars/utils/prefs.dart';
 import 'package:fluttercars/pages/favoritos/favoritos_page.dart';
 
@@ -58,7 +59,7 @@ class _HomePageState extends State<HomePage>
                     text: 'Luxo',
                     icon: Icon(Icons.directions_car),
                   ),
-                   Tab(
+                  Tab(
                     text: 'Favoritos',
                     icon: Icon(Icons.favorite),
                   ),
@@ -83,6 +84,17 @@ class _HomePageState extends State<HomePage>
               ],
             ),
       drawer: DrawerList(),
+      floatingActionButton: FloatingActionButton(
+        /* rgb(13,71,161)
+        rgb(76,175,80) */
+        backgroundColor: Color.fromRGBO(76, 175, 80, 0.6),
+        child: Icon(Icons.add),
+        onPressed: _onClickAdicionarCarro,
+      ),
     );
+  }
+
+  void _onClickAdicionarCarro() {
+    alert(context, 'Adicionar carro!!!');
   }
 }
