@@ -236,7 +236,7 @@ class _CarroFormPageState extends State<CarroFormPage> {
     car.tipo = _getTipo();
 
     print("Carro: $car");
-    ApiResponse<bool> response = await CarrosApi.save(car);
+    ApiResponse<bool> response = await CarrosApi.save(car, _file);
 
     if (response.ok) {
       alert(context, 'Carro salvo com sucesso!', callback: () {

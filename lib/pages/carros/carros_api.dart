@@ -1,7 +1,9 @@
 import 'dart:convert' as convert;
+import 'dart:io';
 
 import 'package:fluttercars/pages/api_response.dart';
 import 'package:fluttercars/pages/carros/carro.dart';
+import 'package:fluttercars/pages/carros/upload_api.dart';
 import 'package:fluttercars/utils/http_helper.dart' as http;
 
 /* enum TipoCarro { CLASSICOS, ESPORTIVOS, LUXO } */
@@ -23,8 +25,16 @@ class CarrosApi {
     return carros;
   }
 
-  static Future<ApiResponse<bool>> save(Carro car) async {
+  static Future<ApiResponse<bool>> save(Carro car, File file) async {
     try {
+      if (file != null) {
+        ApiResponse<String> response = await UploadApi.upload(file);
+        if (response.ok) {
+          String urlFoto = response.result;
+          car.urlFoto = urlFoto;
+        }
+      }
+
       var url = 'https://carros-springboot.herokuapp.com/api/v2/carros';
       if (car.id != null) {
         url += '/${car.id}';
