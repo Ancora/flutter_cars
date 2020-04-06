@@ -130,8 +130,10 @@ class _CarroFormPageState extends State<CarroFormPage> {
   _headerFoto() {
     return carro != null
         ? CachedNetworkImage(
-            imageUrl: widget.carro.urlFoto ??
-                "http://www.livroandroid.com.br/livro/carros/esportivos/Ferrari_FF.png")
+            imageUrl: widget.carro
+                .urlFoto /* ??
+                "http://www.livroandroid.com.br/livro/carros/esportivos/Ferrari_FF.png" */
+            )
         : Image.asset(
             "assets/images/camera.png",
             height: 250,

@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttercars/pages/api_response.dart';
 import 'package:fluttercars/pages/carros/carro.dart';
 import 'package:fluttercars/pages/carros/carro_form_page.dart';
+import 'package:fluttercars/pages/carros/carros_api.dart';
 import 'package:fluttercars/pages/carros/loripsum_api.dart';
+import 'package:fluttercars/utils/alert.dart';
 import 'package:fluttercars/utils/nav.dart';
 import 'package:fluttercars/widgets/text.dart';
 import 'package:fluttercars/pages/favoritos/favorito_service.dart';
@@ -167,7 +170,7 @@ class _CarroPageState extends State<CarroPage> {
         push(context, CarroFormPage(carro: carro));
         break;
       case 'Deletar':
-        print('Deletar!!!');
+        deletar();
         break;
       case 'Share':
         print('Share!!!');
@@ -185,6 +188,18 @@ class _CarroPageState extends State<CarroPage> {
   }
 
   void _onClickShare() {}
+
+  void deletar() async {
+    ApiResponse<bool> response = await CarrosApi.delete(carro);
+
+    if (response.ok) {
+      alert(context, 'Carro excluído com sucesso!', callback: () {
+        pop(context);
+      });
+    } else {
+      alert(context, response.msg);
+    }
+  }
 
   @override
   void dispose() {

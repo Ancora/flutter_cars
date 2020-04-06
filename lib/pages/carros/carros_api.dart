@@ -72,4 +72,26 @@ class CarrosApi {
       return ApiResponse.error('Não foi possível salvar alterações!');
     }
   }
+
+  static Future<ApiResponse<bool>> delete(Carro car) async {
+    try {
+      Usuario user = await Usuario.get();
+
+      Map<String, String> headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${user.token}',
+      };
+      var url =
+          'https://carros-springboot.herokuapp.com/api/v2/carros/${car.id}';
+
+      var response = await http.delete(url, headers: headers);
+
+      if (response.statusCode == 200) {
+        return ApiResponse.ok(true);
+      }
+      return ApiResponse.error('Não foi possível excluir o carro!');
+    } catch (e) {
+      return ApiResponse.error('Não foi possível excluir o carro!');
+    }
+  }
 }
