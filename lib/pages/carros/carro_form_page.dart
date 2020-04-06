@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttercars/pages/api_response.dart';
 import 'package:fluttercars/pages/carros/carro.dart';
@@ -8,6 +10,7 @@ import 'package:fluttercars/widgets/app_button.dart';
 import 'package:fluttercars/widgets/app_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CarroFormPage extends StatefulWidget {
   final Carro carro;
@@ -28,6 +31,8 @@ class _CarroFormPageState extends State<CarroFormPage> {
   int _radioIndex = 0;
 
   var _showProgress = false;
+
+  File _file;
 
   Carro get carro => widget.carro;
 
@@ -128,16 +133,23 @@ class _CarroFormPageState extends State<CarroFormPage> {
   }
 
   _headerFoto() {
-    return carro != null
-        ? CachedNetworkImage(
-            imageUrl: widget.carro
-                .urlFoto /* ??
-                "http://www.livroandroid.com.br/livro/carros/esportivos/Ferrari_FF.png" */
+    return InkWell(
+      onTap: _onClickFoto,
+      child: _file != null
+          ? Image.file(
+              _file,
+              height: 200,
             )
-        : Image.asset(
-            "assets/images/camera.png",
-            height: 250,
-          );
+          : carro != null
+              ? CachedNetworkImage(
+                  imageUrl: widget.carro.urlFoto,
+                  height: 200,
+                )
+              : Image.asset(
+                  "assets/images/camera.png",
+                  height: 200,
+                ),
+    );
   }
 
   _radioTipo() {
@@ -200,6 +212,15 @@ class _CarroFormPageState extends State<CarroFormPage> {
         return "esportivos";
       default:
         return "luxo";
+    }
+  }
+
+  void _onClickFoto() async {
+    File file = await ImagePicker.pickImage(source: ImageSource.camera);
+    if (file != null) {
+      setState(() {
+        this._file = file;
+      });
     }
   }
 
