@@ -34,7 +34,7 @@ class _CarroFormPageState extends State<CarroFormPage> {
     }
 
     return null;
-  }
+  } // OK
 
   @override
   void initState() {
@@ -57,11 +57,21 @@ class _CarroFormPageState extends State<CarroFormPage> {
         ),
       ),
       body: Container(
+        // OK
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromARGB(255, 0, 0, 100),
+              Color.fromARGB(255, 0, 0, 150),
+              Color.fromARGB(255, 0, 0, 100),
+            ],
+          ),
+        ),
         padding: EdgeInsets.all(16),
         child: _form(),
       ),
     );
-  }
+  } // OK
 
   _form() {
     return Form(
@@ -77,7 +87,7 @@ class _CarroFormPageState extends State<CarroFormPage> {
               color: Colors.grey,
             ),
           ),
-          Divider(),
+          Divider(color: Colors.blueAccent),
           Text(
             "Tipo",
             style: TextStyle(
@@ -86,21 +96,23 @@ class _CarroFormPageState extends State<CarroFormPage> {
             ),
           ),
           _radioTipo(),
-          Divider(),
+          Divider(color: Colors.blueAccent),
           AppText(
             "Nome",
-            "",
+            "Informe o nome do carro...",
             controller: tNome,
             keyboardType: TextInputType.text,
             validator: _validateNome,
           ),
+          SizedBox(height: 10),
           AppText(
             "Descrição",
-            "",
+            "Informe uma descrição para o carro...",
             controller: tDesc,
             keyboardType: TextInputType.text,
-            validator: _validateNome,
+            // validator: _validateNome,
           ),
+          SizedBox(height: 10),
           AppButton(
             "Salvar",
             onPressed: _onClickSalvar,
@@ -118,7 +130,7 @@ class _CarroFormPageState extends State<CarroFormPage> {
           )
         : Image.asset(
             "assets/images/camera.png",
-            height: 150,
+            height: 250,
           );
   }
 
