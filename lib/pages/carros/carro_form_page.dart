@@ -3,7 +3,7 @@ import 'package:fluttercars/pages/api_response.dart';
 import 'package:fluttercars/pages/carros/carro.dart';
 import 'package:fluttercars/pages/carros/carros_api.dart';
 import 'package:fluttercars/utils/alert.dart';
-// import 'package:fluttercars/utils/nav.dart';
+import 'package:fluttercars/utils/nav.dart';
 import 'package:fluttercars/widgets/app_button.dart';
 import 'package:fluttercars/widgets/app_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -130,8 +130,8 @@ class _CarroFormPageState extends State<CarroFormPage> {
   _headerFoto() {
     return carro != null
         ? CachedNetworkImage(
-            imageUrl: carro.urlFoto,
-          )
+            imageUrl: widget.carro.urlFoto ??
+                "http://www.livroandroid.com.br/livro/carros/esportivos/Ferrari_FF.png")
         : Image.asset(
             "assets/images/camera.png",
             height: 250,
@@ -217,8 +217,8 @@ class _CarroFormPageState extends State<CarroFormPage> {
 
     if (response.ok) {
       alert(context, 'Carro salvo com sucesso!', callback: () {
-        Navigator.pop(context);
-        /* pop(context); */
+        //Navigator.pop(context);
+        pop(context);
       });
     } else {
       alert(context, response.msg);

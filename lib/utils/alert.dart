@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 alert(context, String msg, {Function callback}) {
+  print('msg => $msg');
   showDialog(
     context: context,
     barrierDismissible: false,

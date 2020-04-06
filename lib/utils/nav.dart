@@ -21,6 +21,10 @@ push(BuildContext context, Widget page, {bool replace = false}) {
   );
 }
 
-/* bool pop<T extends Object>(BuildContext context, [T result]) {
-  return Navigator.pop(context);
-} */
+bool pop<T extends Object>(BuildContext context, [T result]) {
+  if (Navigator.canPop(context)) {
+    Navigator.pop(context);
+    return true;
+  }
+  return false;
+}

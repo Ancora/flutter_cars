@@ -88,7 +88,9 @@ class _CarroPageState extends State<CarroPage> {
       ),
       child: ListView(
         children: <Widget>[
-          CachedNetworkImage(imageUrl: widget.carro.urlFoto),
+          CachedNetworkImage(
+              imageUrl: widget.carro.urlFoto ??
+                  "http://www.livroandroid.com.br/livro/carros/esportivos/Ferrari_FF.png"),
           _bloco1(),
           Divider(color: Colors.lightBlueAccent),
           _bloco2(),

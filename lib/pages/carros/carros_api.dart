@@ -33,33 +33,43 @@ class CarrosApi {
   }
 
   static Future<ApiResponse<bool>> save(Carro car) async {
-    Usuario user = await Usuario.get();
+    try {
+      Usuario user = await Usuario.get();
 
-    Map<String, String> headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ${user.token}',
-    };
-    var url = 'https://carros-springboot.herokuapp.com/api/v2/carros';
+      Map<String, String> headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${user.token}',
+      };
+      var url = 'https://carros-springboot.herokuapp.com/api/v2/carros';
+      if (car.id != null) {
+        url += '/${car.id}';
+      }
 
-    print('POST >> $url');
+      print('POST >> $url');
 
-    String json = car.toJson();
-    var response = await http.post(url, body: json, headers: headers);
+      String json = car.toJson();
+      var response = await (car.id == null
+          ? http.post(url, body: json, headers: headers)
+          : http.put(url, body: json, headers: headers));
 
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
 
-    if (response.statusCode == 201) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        Map mapResponse = convert.jsonDecode(response.body);
+        Carro carro = Carro.fromMap(mapResponse);
+        print('Novo carro: ${carro.id}');
+        return ApiResponse.ok(true);
+      }
+
+      if (response.body == null || response.body.isEmpty) {
+        return ApiResponse.error('Não foi possível salvar alterações!');
+      }
+
       Map mapResponse = convert.jsonDecode(response.body);
-
-      Carro carro = Carro.fromMap(mapResponse);
-
-      print('Novo carro: ${carro.id}');
-
-      return ApiResponse.ok(true);
+      return ApiResponse.error(mapResponse['error']);
+    } catch (e) {
+      return ApiResponse.error('Não foi possível salvar alterações!');
     }
-
-    Map mapResponse = convert.jsonDecode(response.body);
-    return ApiResponse.error(mapResponse['error']);
   }
 }
