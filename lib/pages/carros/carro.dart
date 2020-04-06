@@ -1,4 +1,5 @@
 import 'package:fluttercars/utils/sql/entity.dart';
+import 'dart:convert' as convert;
 
 class Carro extends Entity {
   int id;
@@ -44,4 +45,14 @@ class Carro extends Entity {
     data['longitude'] = this.longitude;
     return data;
   }
+
+  String toJson() {
+    String json = convert.jsonEncode(toMap());
+    return json;
+  }
+
+  /* @override
+  String toString() {
+    return 'Carro{id: $id, nome: $nome, tipo: $tipo, descricao: $descricao, urlFoto: $urlFoto, urlVideo: $urlVideo, latitude: $latitude, longitude: $longitude}';
+  } */
 }

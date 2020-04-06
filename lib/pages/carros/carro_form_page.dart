@@ -1,5 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluttercars/pages/api_response.dart';
 import 'package:fluttercars/pages/carros/carro.dart';
+import 'package:fluttercars/pages/carros/carros_api.dart';
+import 'package:fluttercars/utils/alert.dart';
 import 'package:fluttercars/widgets/app_button.dart';
 import 'package:fluttercars/widgets/app_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -203,18 +206,25 @@ class _CarroFormPageState extends State<CarroFormPage> {
     }
 
     // Cria o carro
-    var c = carro ?? Carro();
-    c.nome = tNome.text;
-    c.descricao = tDesc.text;
-    c.tipo = _getTipo();
+    var car = carro ?? Carro();
+    car.nome = tNome.text;
+    car.descricao = tDesc.text;
+    car.tipo = _getTipo();
 
-    print("Carro: $c");
+    print("Carro: $car");
+    ApiResponse<bool> response = await CarrosApi.save(car);
+
+    if (response.ok) {
+      alert(context, 'Carro salvo com sucesso!');
+    } else {
+      alert(context, response.msg);
+    }
 
     setState(() {
       _showProgress = true;
     });
 
-    print("Salvar o carro $c");
+    print("Salvar o carro $car");
 
     await Future.delayed(Duration(seconds: 3));
 
