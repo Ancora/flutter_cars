@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttercars/pages/favoritos/favoritos_bloc.dart';
 import 'package:fluttercars/splash_page.dart';
+
+final favoritosBloc = FavoritosBloc();
 
 void main() {
   runApp(MyApp());

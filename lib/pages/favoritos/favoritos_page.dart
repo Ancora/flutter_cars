@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fluttercars/main.dart';
 import 'package:fluttercars/pages/carros/carro.dart';
-import 'package:fluttercars/pages/favoritos/favoritos_bloc.dart';
 import 'package:fluttercars/pages/carros/carros_listview.dart';
 import 'package:fluttercars/widgets/text_error.dart';
 
@@ -11,19 +11,13 @@ class FavoritosPage extends StatefulWidget {
 
 class _FavoritosPageState extends State<FavoritosPage>
     with AutomaticKeepAliveClientMixin<FavoritosPage> {
-  final _bloc = FavoritosBloc();
-
   @override
   bool get wantKeepAlive => true;
 
   @override
   void initState() {
     super.initState();
-    _fetch();
-  }
-
-  void _fetch() {
-    _bloc.fetch();
+    favoritosBloc.fetch();
   }
 
   @override
@@ -41,12 +35,12 @@ class _FavoritosPageState extends State<FavoritosPage>
         ),
       ),
       child: StreamBuilder(
-        stream: _bloc.stream,
+        stream: favoritosBloc.stream,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return TextError(
               'Não foi possível buscar a lista de carros!\n\nClique aqui para tentar novamente.',
-              onPressed: _fetch,
+              onPressed: favoritosBloc.fetch,
             );
           }
           if (!snapshot.hasData) {
@@ -69,12 +63,6 @@ class _FavoritosPageState extends State<FavoritosPage>
   }
 
   Future<void> _onRefresh() {
-    return _bloc.fetch();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _bloc.dispose();
+    return favoritosBloc.fetch();
   }
 }

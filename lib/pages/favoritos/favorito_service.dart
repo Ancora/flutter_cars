@@ -1,3 +1,4 @@
+import 'package:fluttercars/main.dart';
 import 'package:fluttercars/pages/carros/carro.dart';
 import 'package:fluttercars/pages/carros/carro_dao.dart';
 import 'package:fluttercars/pages/favoritos/favorito.dart';
@@ -17,9 +18,11 @@ class FavoritoService {
 
     if (exists) {
       dao.delete(car.id);
+      favoritosBloc.fetch();
       return false;
     } else {
       dao.save(fav);
+      favoritosBloc.fetch();
       return true;
     }
   }
