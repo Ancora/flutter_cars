@@ -182,7 +182,7 @@ class _CarroPageState extends State<CarroPage> {
   }
 
   void _onClickFavorito() async {
-    bool favorito = await FavoritoService.favoritar(carro);
+    bool favorito = await FavoritoService.favoritar(context, carro);
 
     setState(() {
       icon = favorito ? Icon(Icons.favorite) : Icon(Icons.favorite_border);

@@ -1,11 +1,12 @@
-import 'package:fluttercars/main.dart';
 import 'package:fluttercars/pages/carros/carro.dart';
 import 'package:fluttercars/pages/carros/carro_dao.dart';
 import 'package:fluttercars/pages/favoritos/favorito.dart';
 import 'package:fluttercars/pages/favoritos/favorito_dao.dart';
+import 'package:fluttercars/pages/favoritos/favoritos_bloc.dart';
+import 'package:provider/provider.dart';
 
 class FavoritoService {
-  static Future<bool> favoritar(Carro car) async {
+  static Future<bool> favoritar(context, Carro car) async {
     // Salvar em favorito:
     // Opção 1
     /* Favorito fav = Favorito();
@@ -18,11 +19,11 @@ class FavoritoService {
 
     if (exists) {
       dao.delete(car.id);
-      favoritosBloc.fetch();
+      Provider.of<FavoritosBloc>(context, listen: false).fetch();
       return false;
     } else {
       dao.save(fav);
-      favoritosBloc.fetch();
+      Provider.of<FavoritosBloc>(context, listen: false).fetch();
       return true;
     }
   }

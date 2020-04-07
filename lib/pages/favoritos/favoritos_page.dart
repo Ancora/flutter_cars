@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:fluttercars/main.dart';
 import 'package:fluttercars/pages/carros/carro.dart';
 import 'package:fluttercars/pages/carros/carros_listview.dart';
+import 'package:fluttercars/pages/favoritos/favoritos_bloc.dart';
 import 'package:fluttercars/widgets/text_error.dart';
+import 'package:provider/provider.dart';
 
 class FavoritosPage extends StatefulWidget {
   @override
@@ -17,12 +18,15 @@ class _FavoritosPageState extends State<FavoritosPage>
   @override
   void initState() {
     super.initState();
+    FavoritosBloc favoritosBloc =
+        Provider.of<FavoritosBloc>(context, listen: false);
     favoritosBloc.fetch();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    FavoritosBloc favoritosBloc = Provider.of<FavoritosBloc>(context);
     return Container(
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -63,6 +67,6 @@ class _FavoritosPageState extends State<FavoritosPage>
   }
 
   Future<void> _onRefresh() {
-    return favoritosBloc.fetch();
+    return Provider.of<FavoritosBloc>(context).fetch();
   }
 }
