@@ -5,6 +5,7 @@ import 'package:fluttercars/pages/carros/carro.dart';
 import 'package:fluttercars/pages/carros/carro_form_page.dart';
 import 'package:fluttercars/pages/carros/carros_api.dart';
 import 'package:fluttercars/pages/carros/loripsum_api.dart';
+import 'package:fluttercars/pages/carros/mapa_page.dart';
 import 'package:fluttercars/pages/carros/video_page.dart';
 import 'package:fluttercars/utils/alert.dart';
 import 'package:fluttercars/utils/event_bus.dart';
@@ -47,7 +48,9 @@ class _CarroPageState extends State<CarroPage> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.place),
-            onPressed: _onClickMapa,
+            onPressed: () {
+              _onClickMapa();
+            },
           ),
           IconButton(
             icon: Icon(Icons.videocam),
@@ -167,7 +170,13 @@ class _CarroPageState extends State<CarroPage> {
     );
   }
 
-  void _onClickMapa() {}
+  void _onClickMapa() {
+    if (carro.latitude != null && carro.longitude != null) {
+      push(context, MapaPage(carro));
+    } else {
+      alert(context, 'Carro sem informação de latitude/longitude!');
+    }
+  }
 
   void _onClickVideo() {
     if (carro.urlVideo != null && carro.urlVideo.isNotEmpty) {
