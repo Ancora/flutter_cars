@@ -86,31 +86,68 @@ class CarrosListView extends StatelessWidget {
   }
 
   void _onLongClickCarro(BuildContext context, Carro car) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return SimpleDialog(
-            title: Text(car.nome),
-            children: <Widget>[
-              ListTile(
-                leading: Icon(Icons.directions_car),
-                title: Text('Detalhes'),
-                onTap: () {
-                  pop(context);
-                  _onClickCarro(context, car);
-                },
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: Text(
+                car.nome,
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              ListTile(
-                leading: Icon(Icons.share),
-                title: Text('Share'),
-                onTap: () {
-                  pop(context);
-                  _onClickShare(context, car);
-                },
-              ),
-            ],
-          );
-        });
+            ),
+            ListTile(
+              leading: Icon(Icons.directions_car),
+              title: Text('Detalhes'),
+              onTap: () {
+                pop(context);
+                _onClickCarro(context, car);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.share),
+              title: Text('Share'),
+              onTap: () {
+                pop(context);
+                _onClickShare(context, car);
+              },
+            ),
+          ],
+        );
+      },
+    );
+    /* showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          title: Text(car.nome),
+          children: <Widget>[
+            ListTile(
+              leading: Icon(Icons.directions_car),
+              title: Text('Detalhes'),
+              onTap: () {
+                pop(context);
+                _onClickCarro(context, car);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.share),
+              title: Text('Share'),
+              onTap: () {
+                pop(context);
+                _onClickShare(context, car);
+              },
+            ),
+          ],
+        );
+      },
+    ); */
   }
 
   void _onClickShare(BuildContext context, Carro car) {
