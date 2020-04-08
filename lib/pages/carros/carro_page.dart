@@ -5,12 +5,13 @@ import 'package:fluttercars/pages/carros/carro.dart';
 import 'package:fluttercars/pages/carros/carro_form_page.dart';
 import 'package:fluttercars/pages/carros/carros_api.dart';
 import 'package:fluttercars/pages/carros/loripsum_api.dart';
+import 'package:fluttercars/pages/carros/video_page.dart';
 import 'package:fluttercars/utils/alert.dart';
 import 'package:fluttercars/utils/event_bus.dart';
 import 'package:fluttercars/utils/nav.dart';
 import 'package:fluttercars/widgets/text.dart';
 import 'package:fluttercars/pages/favoritos/favorito_service.dart';
-import 'package:url_launcher/url_launcher.dart';
+//import 'package:url_launcher/url_launcher.dart';
 
 class CarroPage extends StatefulWidget {
   final Carro carro;
@@ -170,7 +171,8 @@ class _CarroPageState extends State<CarroPage> {
 
   void _onClickVideo() {
     if (carro.urlVideo != null && carro.urlVideo.isNotEmpty) {
-      launch(carro.urlVideo);
+      //launch(carro.urlVideo);
+      push(context, VideoPage(carro));
     } else {
       alert(context, 'Este carro não possui vídeo!');
     }
