@@ -21,7 +21,7 @@ class _CarrosPageState extends State<CarrosPage>
   final _bloc = CarrosBloc();
   List<Carro> carros;
 
-  StreamSubscription<String> subscription;
+  StreamSubscription<Event> subscription;
   String get tipo => widget.tipo;
 
   @override
@@ -37,8 +37,11 @@ class _CarrosPageState extends State<CarrosPage>
     _bloc.fetch(tipo);
     // Escutando uma stream
     final bus = EventBus.get(context);
-    subscription = bus.stream.listen((String s) {
-      _bloc.fetch(tipo);
+    subscription = bus.stream.listen((Event e) {
+      CarroEvent carroEvent = e;
+      if (carroEvent.tipo == tipo) {
+        _bloc.fetch(tipo);
+      }
     });
   }
 

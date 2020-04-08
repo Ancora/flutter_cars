@@ -93,8 +93,8 @@ class _CarroPageState extends State<CarroPage> {
       child: ListView(
         children: <Widget>[
           CachedNetworkImage(
-            imageUrl:
-                widget.carro.urlFoto ?? Image.asset('assets/images/camera.png'),
+            imageUrl: widget.carro.urlFoto ??
+                "http://www.livroandroid.com.br/livro/carros/esportivos/Ferrari_FF.png",
             width: 150,
           ),
           _bloco1(),
@@ -197,7 +197,8 @@ class _CarroPageState extends State<CarroPage> {
 
     if (response.ok) {
       alert(context, 'Carro excluído com sucesso!', callback: () {
-        EventBus.get(context).sendEvent('carro_deletado');
+        EventBus.get(context)
+            .sendEvent(CarroEvent('carro_deletado', carro.tipo));
         pop(context);
       });
     } else {
