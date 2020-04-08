@@ -6,7 +6,6 @@ import 'package:fluttercars/pages/carros/carros_bloc.dart';
 import 'package:fluttercars/pages/carros/carros_listview.dart';
 import 'package:fluttercars/utils/event_bus.dart';
 import 'package:fluttercars/widgets/text_error.dart';
-import 'package:provider/provider.dart';
 
 class CarrosPage extends StatefulWidget {
   final String tipo;

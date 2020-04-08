@@ -10,6 +10,7 @@ import 'package:fluttercars/utils/event_bus.dart';
 import 'package:fluttercars/utils/nav.dart';
 import 'package:fluttercars/widgets/text.dart';
 import 'package:fluttercars/pages/favoritos/favorito_service.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CarroPage extends StatefulWidget {
   final Carro carro;
@@ -49,7 +50,9 @@ class _CarroPageState extends State<CarroPage> {
           ),
           IconButton(
             icon: Icon(Icons.videocam),
-            onPressed: _onClickVideo,
+            onPressed: () {
+              _onClickVideo();
+            },
           ),
           PopupMenuButton<String>(
             color: Colors.lightBlueAccent,
@@ -165,7 +168,13 @@ class _CarroPageState extends State<CarroPage> {
 
   void _onClickMapa() {}
 
-  void _onClickVideo() {}
+  void _onClickVideo() {
+    if (carro.urlVideo != null && carro.urlVideo.isNotEmpty) {
+      launch(carro.urlVideo);
+    } else {
+      alert(context, 'Este carro não possui vídeo!');
+    }
+  }
 
   _onClickPopupMenu(String value) {
     switch (value) {
