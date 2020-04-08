@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fluttercars/pages/favoritos/favoritos_bloc.dart';
+import 'package:fluttercars/pages/favoritos/favoritos_model.dart';
 import 'package:fluttercars/splash_page.dart';
+import 'package:fluttercars/utils/event_bus.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -12,10 +13,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider(
-          create: (_) => FavoritosBloc(),
-          dispose: (context, bloc) => bloc.dispose(),
-        )
+        Provider<EventBus>(
+          create: (_) => EventBus(),
+          dispose: (context, bus) => bus.dispose(),
+        ),
+        ChangeNotifierProvider<FavoritosModel>(create: (_) => FavoritosModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
