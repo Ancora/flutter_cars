@@ -29,16 +29,37 @@ class MapaPage extends StatelessWidget {
         ),
       ),
       child: GoogleMap(
-        mapType: MapType.satellite,
+        mapType: MapType.normal,
+        zoomGesturesEnabled: true,
         initialCameraPosition: CameraPosition(
           target: latLng(),
           zoom: 17,
         ),
+        markers: Set.of(_getMarkers()),
       ),
     );
   }
 
   latLng() {
-    return LatLng(-9.6519911, -35.7197529);
+    return carro.latlng();
+    //return LatLng(-9.6519911, -35.7197529);
+  }
+
+  List<Marker> _getMarkers() {
+    return [
+      Marker(
+          markerId: MarkerId('1'),
+          position: carro.latlng(),
+          infoWindow: InfoWindow(
+              title: carro.nome,
+              snippet: 'Local de teste',
+              onTap: () {
+                print('Clicou na janela!');
+              }),
+          // onTap do marcador
+          onTap: () {
+            print('Clicou no marcador!');
+          })
+    ];
   }
 }
