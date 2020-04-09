@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttercars/firebase/firebase_service.dart';
 import 'package:fluttercars/pages/login/login_page.dart';
 import 'package:fluttercars/pages/login/usuario.dart';
 import 'package:fluttercars/utils/nav.dart';
@@ -66,6 +67,7 @@ class DrawerList extends StatelessWidget {
 
   _onClickLogout(BuildContext context) {
     Usuario.clear();
+    FirebaseService().logout();
     Navigator.pop(context);
     push(context, LoginPage(), replace: true);
   }

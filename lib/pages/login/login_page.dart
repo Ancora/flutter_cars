@@ -96,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                   color: Colors.lightBlueAccent,
                   fontSize: 20,
                 ),
-                onPressed: _onClickGoogle(),
+                onPressed: _onClickGoogle,
               ),
             ),
           ],
@@ -158,5 +158,4 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
     _bloc.dispose();
   }
-
 }
