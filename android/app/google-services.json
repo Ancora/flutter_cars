@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "643876781025",
+    "firebase_url": "https://flutcars.firebaseio.com",
+    "project_id": "flutcars",
+    "storage_bucket": "flutcars.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643876781025:android:134051e5bf610d0412b0a0",
+        "android_client_info": {
+          "package_name": "br.com.ancorati.fluttercars"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643876781025-isgjpeccuub750uh4csu7qlgp0ehggb4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.ancorati.fluttercars",
+            "certificate_hash": "e94566548740c01d1af2f755ce32e0f9f7113bd1"
+          }
+        },
+        {
+          "client_id": "643876781025-1jf2hf650qhq88ildn687ke8u5f89rur.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzfMiADPN2sPoOl0rbdZ2w0SjOgjT9NWE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643876781025-1jf2hf650qhq88ildn687ke8u5f89rur.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
