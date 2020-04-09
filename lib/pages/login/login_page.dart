@@ -7,6 +7,7 @@ import 'package:fluttercars/utils/alert.dart';
 import 'package:fluttercars/utils/nav.dart';
 import 'package:fluttercars/widgets/app_button.dart';
 import 'package:fluttercars/widgets/app_text.dart';
+import 'package:fluttercars/firebase/firebase_service.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -95,7 +96,6 @@ class _LoginPageState extends State<LoginPage> {
                   color: Colors.lightBlueAccent,
                   fontSize: 20,
                 ),
-                //text: 'Acesse com sua conta Google',
                 onPressed: _onClickGoogle(),
               ),
             ),
@@ -103,6 +103,17 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  _onClickGoogle() async {
+    final service = FirebaseService();
+    ApiResponse response = await service.loginGoogle();
+
+    if (response.ok) {
+      push(context, HomePage(), replace: true);
+    } else {
+      alert(context, response.msg);
+    }
   }
 
   void _onClickLogin() async {
@@ -148,7 +159,4 @@ class _LoginPageState extends State<LoginPage> {
     _bloc.dispose();
   }
 
-  _onClickGoogle() {
-    print('Google');
-  }
 }

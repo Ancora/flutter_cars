@@ -16,7 +16,7 @@ class TipoCarro {
 class CarrosApi {
   static Future<List<Carro>> getCarros(String tipo) async {
     var url =
-        'https://carros-springboot.herokuapp.com/api/v2/carros/tipo/$tipo';
+        'https://carros-springboot.herokuapp.com/api/v1/carros/tipo/$tipo';
     var response = await http.get(url);
 
     List list = convert.jsonDecode(response.body);
@@ -35,7 +35,7 @@ class CarrosApi {
         }
       }
 
-      var url = 'https://carros-springboot.herokuapp.com/api/v2/carros';
+      var url = 'https://carros-springboot.herokuapp.com/api/v1/carros';
       if (car.id != null) {
         url += '/${car.id}';
       }
@@ -49,33 +49,33 @@ class CarrosApi {
         Map mapResponse = convert.jsonDecode(response.body);
         Carro carro = Carro.fromMap(mapResponse);
         print('Novo carro: ${carro.id}');
-        return ApiResponse.ok(true);
+        return ApiResponse.ok();
       }
 
       if (response.body == null || response.body.isEmpty) {
-        return ApiResponse.error('Não foi possível salvar alterações!');
+        return ApiResponse.error(msg: 'Não foi possível salvar alterações!');
       }
 
       Map mapResponse = convert.jsonDecode(response.body);
-      return ApiResponse.error(mapResponse['error']);
+      return ApiResponse.error(msg: mapResponse['error']);
     } catch (e) {
-      return ApiResponse.error('Não foi possível salvar alterações!');
+      return ApiResponse.error(msg: 'Não foi possível salvar alterações!');
     }
   }
 
   static Future<ApiResponse<bool>> delete(Carro car) async {
     try {
       var url =
-          'https://carros-springboot.herokuapp.com/api/v2/carros/${car.id}';
+          'https://carros-springboot.herokuapp.com/api/v1/carros/${car.id}';
 
       var response = await http.delete(url);
 
       if (response.statusCode == 200) {
-        return ApiResponse.ok(true);
+        return ApiResponse.ok();
       }
-      return ApiResponse.error('Não foi possível excluir o carro!');
+      return ApiResponse.error(msg: 'Não foi possível excluir o carro!');
     } catch (e) {
-      return ApiResponse.error('Não foi possível excluir o carro!');
+      return ApiResponse.error(msg: 'Não foi possível excluir o carro!');
     }
   }
 }
