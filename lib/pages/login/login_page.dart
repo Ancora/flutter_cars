@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:fluttercars/pages/api_response.dart';
 import 'package:fluttercars/pages/carros/home_page.dart';
 import 'package:fluttercars/pages/login/login_bloc.dart';
@@ -74,15 +75,30 @@ class _LoginPageState extends State<LoginPage> {
             ),
             SizedBox(height: 20),
             StreamBuilder<bool>(
-                stream: _bloc.stream,
-                initialData: false,
-                builder: (context, snapshot) {
-                  return AppButton(
-                    'Login',
-                    onPressed: _onClickLogin,
-                    showProgress: snapshot.data,
-                  );
-                }),
+              stream: _bloc.stream,
+              initialData: false,
+              builder: (context, snapshot) {
+                return AppButton(
+                  'Login',
+                  onPressed: _onClickLogin,
+                  showProgress: snapshot.data,
+                );
+              },
+            ),
+            Container(
+              height: 46,
+              margin: const EdgeInsets.only(top: 20),
+              child: GoogleSignInButton(
+                darkMode: true,
+                text: ('Acesse com sua conta do Google'),
+                textStyle: TextStyle(
+                  color: Colors.lightBlueAccent,
+                  fontSize: 20,
+                ),
+                //text: 'Acesse com sua conta Google',
+                onPressed: _onClickGoogle(),
+              ),
+            ),
           ],
         ),
       ),
@@ -119,8 +135,8 @@ class _LoginPageState extends State<LoginPage> {
     if (text.isEmpty) {
       return 'Campo SENHA obrigatório!';
       /* } else if (text.length < 6) {
-      return 'Campo SENHA deve ter, no mínimo, 6 caracteres!';
-     */
+                      return 'Campo SENHA deve ter, no mínimo, 6 caracteres!';
+                     */
     } else {
       return null;
     }
@@ -130,5 +146,9 @@ class _LoginPageState extends State<LoginPage> {
   void dispose() {
     super.dispose();
     _bloc.dispose();
+  }
+
+  _onClickGoogle() {
+    print('Google');
   }
 }
