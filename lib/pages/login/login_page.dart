@@ -91,10 +91,10 @@ class _LoginPageState extends State<LoginPage> {
               margin: const EdgeInsets.only(top: 20),
               child: GoogleSignInButton(
                 darkMode: true,
-                text: ('Acesse com sua conta do Google'),
+                text: ('Acesse com sua conta Google'),
                 textStyle: TextStyle(
                   color: Colors.lightBlueAccent,
-                  fontSize: 20,
+                  fontSize: 16,
                 ),
                 onPressed: _onClickGoogle,
               ),

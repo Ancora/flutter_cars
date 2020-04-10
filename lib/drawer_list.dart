@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttercars/firebase/firebase_service.dart';
 import 'package:fluttercars/pages/login/login_page.dart';
@@ -5,9 +6,21 @@ import 'package:fluttercars/pages/login/usuario.dart';
 import 'package:fluttercars/utils/nav.dart';
 
 class DrawerList extends StatelessWidget {
+  UserAccountsDrawerHeader _header(FirebaseUser user) {
+    return UserAccountsDrawerHeader(
+      accountName: Text(user.displayName ?? ""),
+      accountEmail: Text(user.email),
+      currentAccountPicture: user.photoUrl != null
+          ? CircleAvatar(
+              backgroundImage: NetworkImage(user.photoUrl),
+            )
+          : FlutterLogo(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    Future<Usuario> future = Usuario.get();
+    Future<FirebaseUser> future = FirebaseAuth.instance.currentUser();
 
     return SafeArea(
       child: Drawer(
@@ -15,10 +28,10 @@ class DrawerList extends StatelessWidget {
           color: Color.fromRGBO(3, 169, 255, 0.5),
           child: ListView(
             children: <Widget>[
-              FutureBuilder<Usuario>(
+              FutureBuilder<FirebaseUser>(
                 future: future,
                 builder: (context, snapshot) {
-                  Usuario user = snapshot.data;
+                  FirebaseUser user = snapshot.data;
                   return user != null ? _header(user) : Container();
                 },
               ),
@@ -55,7 +68,7 @@ class DrawerList extends StatelessWidget {
     );
   }
 
-  _header(Usuario user) {
+  /* _header(Usuario user) {
     return UserAccountsDrawerHeader(
       accountName: Text(user.nome),
       accountEmail: Text(user.email),
@@ -63,7 +76,7 @@ class DrawerList extends StatelessWidget {
         backgroundImage: NetworkImage(user.urlFoto),
       ),
     );
-  }
+  } */
 
   _onClickLogout(BuildContext context) {
     Usuario.clear();
