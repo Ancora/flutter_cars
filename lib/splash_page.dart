@@ -1,8 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttercars/pages/carros/home_page.dart';
 import 'package:fluttercars/utils/sql/db_helper.dart';
 import 'package:fluttercars/pages/login/login_page.dart';
-import 'package:fluttercars/pages/login/usuario.dart';
+//import 'package:fluttercars/pages/login/usuario.dart';
 import 'package:fluttercars/utils/nav.dart';
 
 class SplashPage extends StatefulWidget {
@@ -22,7 +23,7 @@ class _SplashPageState extends State<SplashPage> {
     Future futureA = DatabaseHelper.getInstance().db;
     Future futureB = Future.delayed(Duration(seconds: 3));
 
-    Future<Usuario> futureC = Usuario.get();
+    Future<FirebaseUser> futureC = FirebaseAuth.instance.currentUser();
     // Antes, em LoginPage():
     /* future.then((Usuario user) {
       if (user != null) {
@@ -36,7 +37,7 @@ class _SplashPageState extends State<SplashPage> {
     }); */
 
     Future.wait([futureA, futureB, futureC]).then((List values) {
-      Usuario user = values[2];
+      FirebaseUser user = values[2];
       if (user != null) {
         push(context, HomePage(), replace: true);
       } else {

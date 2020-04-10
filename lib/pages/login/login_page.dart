@@ -94,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                 text: ('Acesse com sua conta Google'),
                 textStyle: TextStyle(
                   color: Colors.lightBlueAccent,
-                  fontSize: 16,
+                  fontSize: 20,
                 ),
                 onPressed: _onClickGoogle,
               ),
