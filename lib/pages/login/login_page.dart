@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:fluttercars/pages/api_response.dart';
+import 'package:fluttercars/pages/cadastro/cadastro_page.dart';
 import 'package:fluttercars/pages/carros/home_page.dart';
 import 'package:fluttercars/pages/login/login_bloc.dart';
 import 'package:fluttercars/utils/alert.dart';
@@ -90,13 +91,29 @@ class _LoginPageState extends State<LoginPage> {
               height: 46,
               margin: const EdgeInsets.only(top: 20),
               child: GoogleSignInButton(
-                darkMode: true,
+                darkMode: false,
                 text: ('Acesse com sua conta Google'),
                 textStyle: TextStyle(
-                  color: Colors.lightBlueAccent,
+                  color: Colors.black,
                   fontSize: 20,
                 ),
                 onPressed: _onClickGoogle,
+              ),
+            ),
+            Container(
+              height: 46,
+              margin: const EdgeInsets.only(top: 20),
+              child: InkWell(
+                onTap: _onClickCadastrar,
+                child: Text(
+                  'Cadastre-se',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 22,
+                    color: Colors.lightBlueAccent,
+                    decoration: TextDecoration.none,
+                  ),
+                ),
               ),
             ),
           ],
@@ -156,5 +173,9 @@ class _LoginPageState extends State<LoginPage> {
   void dispose() {
     super.dispose();
     _bloc.dispose();
+  }
+
+  void _onClickCadastrar() {
+    push(context, CadastroPage(), replace: true);
   }
 }

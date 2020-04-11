@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:fluttercars/pages/api_response.dart';
 import 'package:fluttercars/pages/login/usuario.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -76,5 +77,40 @@ class FirebaseService {
   Future<void> logout() async {
     await _auth.signOut();
     await _googleSignIn.signOut();
+  }
+
+  Future<ApiResponse> cadastrar(
+      String nome, String email, String password) async {
+    try {
+      // Usuario do Firebase
+      AuthResult result = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      final FirebaseUser fUser = result.user;
+      print("Firebase Nome: ${fUser.displayName}");
+      print("Firebase Email: ${fUser.email}");
+      print("Firebase Foto: ${fUser.photoUrl}");
+
+      // Dados para atualizar o usuário
+      final userUpdateInfo = UserUpdateInfo();
+      userUpdateInfo.displayName = nome;
+      userUpdateInfo.photoUrl =
+          "https://s3-sa-east-1.amazonaws.com/livetouch-temp/livrows/foto.png";
+
+      fUser.updateProfile(userUpdateInfo);
+
+      // Resposta genérica
+      return ApiResponse.ok(msg: "Usuário cadastrado com sucesso!");
+    } catch (error) {
+      print(error);
+
+      if (error is PlatformException) {
+        print("Error Code ${error.code}");
+
+        return ApiResponse.error(
+            msg: "Erro ao criar um usuário.\n\n${error.message}");
+      }
+
+      return ApiResponse.error(msg: "Não foi possível criar um usuário!");
+    }
   }
 }
