@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttercars/firebase/firebase_service.dart';
 import 'package:fluttercars/pages/carros/home_page.dart';
 import 'package:fluttercars/utils/sql/db_helper.dart';
 import 'package:fluttercars/pages/login/login_page.dart';
@@ -37,8 +38,9 @@ class _SplashPageState extends State<SplashPage> {
     }); */
 
     Future.wait([futureA, futureB, futureC]).then((List values) {
-      FirebaseUser user = values[2];
-      if (user != null) {
+      FirebaseUser fUser = values[2];
+      if (fUser != null) {
+        firebaseUserUid = fUser.uid;
         push(context, HomePage(), replace: true);
       } else {
         push(context, LoginPage(), replace: true);
