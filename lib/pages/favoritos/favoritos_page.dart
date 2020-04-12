@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercars/pages/carros/carro.dart';
 import 'package:fluttercars/pages/carros/carros_listview.dart';
+import 'package:fluttercars/pages/favoritos/favorito_service.dart';
 import 'package:fluttercars/widgets/text_error.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -34,7 +35,7 @@ class _FavoritosPageState extends State<FavoritosPage>
         ),
       ),
       child: StreamBuilder<QuerySnapshot>(
-        stream: Firestore.instance.collection('carros').snapshots(),
+        stream: FavoritoService().stream,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return TextError(
