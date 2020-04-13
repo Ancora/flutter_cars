@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluttercars/firebase/firebase_service.dart';
 import 'package:fluttercars/pages/api_response.dart';
 import 'package:fluttercars/pages/carros/carro.dart';
 import 'package:fluttercars/pages/carros/carros_api.dart';
@@ -219,6 +220,7 @@ class _CarroFormPageState extends State<CarroFormPage> {
   void _onClickFoto() async {
     File file = await ImagePicker.pickImage(source: ImageSource.camera);
     if (file != null) {
+      FirebaseService.uploadFirebaseStorage(file);
       setState(() {
         this._file = file;
       });

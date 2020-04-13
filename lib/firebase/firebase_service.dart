@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttercars/pages/api_response.dart';
 // import 'package:fluttercars/pages/favoritos/favorito_service.dart';
 import 'package:fluttercars/pages/login/usuario.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:path/path.dart' as path;
 
 String firebaseUserUid;
 
@@ -84,14 +88,8 @@ class FirebaseService {
     }
   }
 
-  Future<void> logout() async {
-    // await FavoritoService().deleteCarros();
-    await _auth.signOut();
-    await _googleSignIn.signOut();
-  }
-
-  Future<ApiResponse> cadastrar(
-      String nome, String email, String password) async {
+  Future<ApiResponse> cadastrar(String nome, String email, String password,
+      {File file}) async {
     try {
       // Usuario do Firebase
       AuthResult result = await _auth.createUserWithEmailAndPassword(
@@ -106,6 +104,10 @@ class FirebaseService {
       userUpdateInfo.displayName = nome;
       userUpdateInfo.photoUrl =
           "https://s3-sa-east-1.amazonaws.com/livetouch-temp/livrows/foto.png";
+      if (file != null) {
+        userUpdateInfo.photoUrl =
+            await FirebaseService.uploadFirebaseStorage(file);
+      }
 
       fUser.updateProfile(userUpdateInfo);
 
@@ -138,5 +140,22 @@ class FirebaseService {
         'urlFoto': fUser.photoUrl,
       });
     }
+  }
+
+  static Future<String> uploadFirebaseStorage(File file) async {
+    print('Upload para Firebase Storage');
+    String fileName = path.basename(file.path);
+    final storageRef = FirebaseStorage.instance.ref().child(fileName);
+
+    final StorageTaskSnapshot task = await storageRef.putFile(file).onComplete;
+    final String urlFoto = await task.ref.getDownloadURL();
+    print('Storage => $urlFoto');
+    return urlFoto;
+  }
+
+  Future<void> logout() async {
+    // await FavoritoService().deleteCarros();
+    await _auth.signOut();
+    await _googleSignIn.signOut();
   }
 }
