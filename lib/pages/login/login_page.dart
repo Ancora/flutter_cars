@@ -10,6 +10,7 @@ import 'package:fluttercars/utils/nav.dart';
 import 'package:fluttercars/widgets/app_button.dart';
 import 'package:fluttercars/widgets/app_text.dart';
 import 'package:fluttercars/firebase/firebase_service.dart';
+//import 'package:firebase_remote_config/firebase_remote_config.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -28,6 +29,20 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
 
     initFcm();
+
+    /* RemoteConfig.instance.then((remoteConfig) {
+      remoteConfig.setConfigSettings(RemoteConfigSettings(debugMode: true));
+
+      try {
+        remoteConfig.fetch(expiration: const Duration(minutes: 1));
+        remoteConfig.activateFetched();
+      } catch (e) {
+        print('Remote Config: $e');
+      }
+      final mensagem = remoteConfig.getString('mensagem');
+
+      print('Mensagem remota: $mensagem');
+    }); */
   }
 
   @override
