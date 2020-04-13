@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
+import 'package:fluttercars/firebase.dart';
 import 'package:fluttercars/pages/api_response.dart';
 import 'package:fluttercars/pages/cadastro/cadastro_page.dart';
 import 'package:fluttercars/pages/carros/home_page.dart';
@@ -25,6 +26,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+
+    initFcm();
   }
 
   @override
